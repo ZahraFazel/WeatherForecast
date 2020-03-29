@@ -17,10 +17,6 @@ public class NotificationCenter {
         void update();
     }
 
-    public void dataLoaded(){
-        notifyObservers();
-    }
-
     public void register(Observer observer){
         observers.add(observer);
     }

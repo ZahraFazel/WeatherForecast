@@ -17,10 +17,13 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 public class MainActivity extends AppCompatActivity implements NotificationCenter.Observer{
-
+    private NotificationCenter notificationCenter = NotificationCenter.getInstance();
+    private Controller controller = Controller.getInstance(notificationCenter);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        notificationCenter.register(this);
+
         setContentView(R.layout.activity_main);
         final EditText searchBox = findViewById(R.id.search_box);
         searchBox.addTextChangedListener(new TextWatcher() {
@@ -66,11 +69,19 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
         queue.add(stringRequest);
     }
 
-    //TODO: fill update method
     @Override
     public void update() {
-
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //TODO: fill update method
+            }
+        });
     }
 
+    protected void onDestroy() {
+        super.onDestroy();
+        notificationCenter.unRegister(this);
+    }
 
 }
