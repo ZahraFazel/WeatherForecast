@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">weather</string>
+    <string name="search_box">search a city</string>
+    <string name="search_box_hint">tehran</string>
+    <string name="base_url">https://api.mapbox.com/geocoding/v5/mapbox.places/</string>
+    <string name="request_format">.json?access_token=</string>
+    <string name="token">pk.eyJ1IjoiamFtc2hpZGk3OTkiLCJhIjoiY2s4YnNqemptMGZlbjNsbWp3enl3dmpjcSJ9.orLQ6mIxIczAo9KEaTq8Tg</string>
 </resources>
