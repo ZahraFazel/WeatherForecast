@@ -16,7 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NotificationCenter.Observer{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,4 +65,12 @@ public class MainActivity extends AppCompatActivity {
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
     }
+
+    //TODO: fill update method
+    @Override
+    public void update() {
+
+    }
+
+
 }
