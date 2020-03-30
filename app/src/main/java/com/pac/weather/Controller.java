@@ -3,7 +3,7 @@ package com.pac.weather;
 public class Controller {
     private static NotificationCenter notificationCenter;
     private static Controller controller;
-    private DispatchQueue dispatchQueue = new DispatchQueue("Controller");
+    public DispatchQueue dispatchQueue = new DispatchQueue("Controller");
 
     private Controller() {
     }
