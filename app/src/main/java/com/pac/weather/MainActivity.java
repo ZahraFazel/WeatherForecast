@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -24,12 +26,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
+
 public class MainActivity extends AppCompatActivity implements NotificationCenter.Observer{
     private NotificationCenter notificationCenter = NotificationCenter.getInstance();
     private Controller controller = Controller.getInstance(notificationCenter);
 
-    ArrayList<String> placeNames = new ArrayList<>();
-    ArrayList<String> centers = new ArrayList<>();
+    ArrayList<City> cities = new ArrayList<>();
 
 
     @Override
@@ -64,6 +67,13 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
                 }
             }
         });
+        final TextView tempTextView = findViewById(R.id.temp_text_view);
+        tempTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendMessageToDisplayActivity(tempTextView.getText().toString());
+            }
+        });
     }
 
     private void makeRequest(String query) {
@@ -90,11 +100,11 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
         try {
             JSONObject jsonObj = new JSONObject(response);
             JSONArray cityArray = jsonObj.getJSONArray("features");
-            placeNames.clear();
+            cities.clear();
             for (int i = 0; i < cityArray.length(); i++) {
                 JSONObject place = cityArray.getJSONObject(i);
-                placeNames.add(place.getString("place_name"));
-                centers.add(place.getString("center"));
+                City city = new City(place.getString("place_name"),place.getString("center"));
+                cities.add(city);
             }
 
         } catch (JSONException e) {
@@ -111,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
             public void run() {
                 //TODO: create recycler view for list representation
                 TextView textView = findViewById(R.id.temp_text_view);
-                textView.setText(placeNames.get(0));
+                textView.setText(cities.get(0).getName());
             }
         });
     }
@@ -119,6 +129,19 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
     protected void onDestroy() {
         super.onDestroy();
         notificationCenter.unRegister(this);
+    }
+
+    public void sendMessageToDisplayActivity(String cityName) {
+        String center = "";
+
+        for (City city : cities)
+            if(city.getName().equals(cityName))
+                center = city.getCenter();
+
+        Intent intent = new Intent(this, DisplayWeahterActivity.class);
+        String key = getString(R.string.msg_inflater_key);
+        intent.putExtra(key, center);
+        startActivity(intent);
     }
 
 }
