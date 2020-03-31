@@ -24,12 +24,15 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements NotificationCenter.Observer{
+public class MainActivity extends AppCompatActivity implements NotificationCenter.Observer {
     private NotificationCenter notificationCenter = NotificationCenter.getInstance();
     private Controller controller = Controller.getInstance(notificationCenter);
 
     ArrayList<City> cities = new ArrayList<>();
 
+    public ArrayList<City> getCities() {
+        return cities;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,16 +56,18 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (searchBox.getText().length() != 0){
+                if (searchBox.getText().length() != 0) {
                     controller.dispatchQueue.postRunnable(new Runnable() {
                         @Override
                         public void run() {
-                            makeRequest(searchBox.getText().toString());
+                            String url = getString(R.string.base_url) + searchBox.getText().toString() + getString(R.string.request_format) + getString(R.string.MapBox_token);
+                            controller.makeRequest(MainActivity.this, url, "MapBox");
                         }
                     });
                 }
             }
         });
+
         final TextView tempTextView = findViewById(R.id.temp_text_view);
         tempTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,43 +77,6 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
         });
     }
 
-    private void makeRequest(String query) {
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url = getString(R.string.base_url) + query + getString(R.string.request_format) + getString(R.string.MapBox_token);
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        parseJson(response);
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.v("error", error.getMessage());
-            }
-        });
-
-        queue.add(stringRequest);
-    }
-
-    private void parseJson(String response){
-        try {
-            JSONObject jsonObj = new JSONObject(response);
-            JSONArray cityArray = jsonObj.getJSONArray("features");
-            cities.clear();
-            for (int i = 0; i < cityArray.length(); i++) {
-                JSONObject place = cityArray.getJSONObject(i);
-                City city = new City(place.getString("place_name"),place.getString("center"));
-                cities.add(city);
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        update();
-
-    }
 
     @Override
     public void update() {
@@ -131,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
         String center = "";
 
         for (City city : cities)
-            if(city.getName().equals(cityName))
+            if (city.getName().equals(cityName))
                 center = city.getCenter();
 
         Intent intent = new Intent(this, DisplayWeahterActivity.class);

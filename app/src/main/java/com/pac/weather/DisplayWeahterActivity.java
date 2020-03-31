@@ -28,9 +28,18 @@ public class DisplayWeahterActivity extends AppCompatActivity implements Notific
     private String center;
     private ArrayList<Weather> dailyForecast;
 
+    public String getCenter() {
+        return center;
+    }
+
+    public ArrayList<Weather> getDailyForecast() {
+        return dailyForecast;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        notificationCenter.register(this);
         setContentView(R.layout.activity_display_weahter);
         dailyForecast = new ArrayList<>();
 
@@ -40,54 +49,13 @@ public class DisplayWeahterActivity extends AppCompatActivity implements Notific
         controller.dispatchQueue.postRunnable(new Runnable() {
             @Override
             public void run() {
-                makeRequest();
-            }
-        });
-    }
-
-
-    private void makeRequest() {
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url = getString(R.string.DarkSky_baseUrl) + center;
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        parseJson(response);
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.v("errorDark", error.getMessage());
+                String url = getString(R.string.DarkSky_baseUrl) + center;
+                controller.makeRequest(DisplayWeahterActivity.this, url, "skyDark");
             }
         });
 
-        queue.add(stringRequest);
     }
 
-    private void parseJson(String response) {
-        try {
-            JSONObject jsonObj = new JSONObject(response).getJSONObject("daily");
-            JSONArray jsonArr = jsonObj.getJSONArray("data");
-
-            for (int i = 0; i < 10; i++) {
-                JSONObject forecast = jsonArr.getJSONObject(i);
-                Weather weather = new Weather(forecast.getString("summary"),
-                        forecast.getString("summary"),
-                        forecast.getString("humidity"),
-                        forecast.getString("pressure"),
-                        forecast.getString("windSpeed"));
-                dailyForecast.add(weather);
-            }
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        update();
-
-    }
 
     @Override
     public void update() {
