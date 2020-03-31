@@ -31,6 +31,8 @@ public class DisplayWeahterActivity extends AppCompatActivity implements Notific
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        notificationCenter.register(this);
+
         setContentView(R.layout.activity_display_weahter);
         dailyForecast = new ArrayList<>();
 
