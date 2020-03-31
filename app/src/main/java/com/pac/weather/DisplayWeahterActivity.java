@@ -7,17 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 public class DisplayWeahterActivity extends AppCompatActivity implements NotificationCenter.Observer {
@@ -40,6 +29,7 @@ public class DisplayWeahterActivity extends AppCompatActivity implements Notific
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         notificationCenter.register(this);
+
         setContentView(R.layout.activity_display_weahter);
         dailyForecast = new ArrayList<>();
 
