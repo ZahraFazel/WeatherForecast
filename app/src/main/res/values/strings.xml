@@ -2,8 +2,10 @@
     <string name="app_name">weather</string>
     <string name="search_box">search a city</string>
     <string name="search_box_hint">tehran</string>
+    <string name="loading_data">please wait ...</string>
     <string name="msg_inflater_key">tehran</string>
     <string name="base_url">https://api.mapbox.com/geocoding/v5/mapbox.places/</string>
     <string name="request_format">.json?access_token=</string>
-    <string name="token">pk.eyJ1IjoiamFtc2hpZGk3OTkiLCJhIjoiY2s4YnNqemptMGZlbjNsbWp3enl3dmpjcSJ9.orLQ6mIxIczAo9KEaTq8Tg</string>
+    <string name="MapBox_token">pk.eyJ1IjoiamFtc2hpZGk3OTkiLCJhIjoiY2s4YnNqemptMGZlbjNsbWp3enl3dmpjcSJ9.orLQ6mIxIczAo9KEaTq8Tg</string>
+    <string name="DarkSky_baseUrl">https://api.darksky.net/forecast/f9740eae0ff78489ad2d74d7c3e21844/</string>
 </resources>

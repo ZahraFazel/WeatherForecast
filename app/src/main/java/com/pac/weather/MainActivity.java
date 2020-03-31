@@ -1,8 +1,6 @@
 package com.pac.weather;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,8 +23,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-
-import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class MainActivity extends AppCompatActivity implements NotificationCenter.Observer{
     private NotificationCenter notificationCenter = NotificationCenter.getInstance();
@@ -78,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
 
     private void makeRequest(String query) {
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = getString(R.string.base_url) + query + getString(R.string.request_format) + getString(R.string.token);
+        String url = getString(R.string.base_url) + query + getString(R.string.request_format) + getString(R.string.MapBox_token);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
