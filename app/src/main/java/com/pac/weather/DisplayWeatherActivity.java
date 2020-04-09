@@ -53,8 +53,6 @@ public class DisplayWeatherActivity extends AppCompatActivity implements Notific
                 @Override
                 public void run() {
                     controller.readDataFromFile(DisplayWeatherActivity.this);
-//                    DisplayWeatherActivity.this.update();
-                    Controller.notificationCenter.notifyObservers();
                 }
             });
         }

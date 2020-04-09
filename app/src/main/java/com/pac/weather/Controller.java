@@ -11,9 +11,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,12 +25,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Controller {
-//    File path = Environment.getExternalStoragePublicDirectory(
-//            Environment.DIRECTORY_PICTURES);
-//    File f = new File(path, "data.txt");
-    private final String filePath = "/media/mohammad/F/data.txt";
-//    private final String filePath = "/Users/roodabeh/Desktop/Files/Projects/Android/HW_01/app/src/main/res/data.txt";
-    public static NotificationCenter notificationCenter;
+
+    private static NotificationCenter notificationCenter;
     private static Controller controller;
     public DispatchQueue dispatchQueue = new DispatchQueue("Controller");
     private ArrayList<Weather> dailyForecast = new ArrayList<>();
@@ -55,11 +49,8 @@ public class Controller {
 
             FileOutputStream file = context.openFileOutput("data.txt", Context.MODE_PRIVATE);
 
-
-//            FileOutputStream file = new FileOutputStream(filePath);
-////            FileOutputStream file = new FileOutputStream(f);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(file);
-            objectOutputStream.writeObject(dailyForecast);
+            objectOutputStream.writeObject(new DataBase(dailyForecast, timezone, time));
             objectOutputStream.flush();
             objectOutputStream.close();
             file.close();
@@ -69,25 +60,26 @@ public class Controller {
         }
     }
 
-    void readDataFromFile(Context context){
+    ArrayList<Weather> readDataFromFile(Context context){
         try {
 
             FileInputStream fileIn = context.openFileInput("data.txt");
 
-//            FileInputStream fileIn = new FileInputStream(filePath);
-//            FileInputStream fileIn = new FileInputStream(f);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileIn);
-            ArrayList<Weather> obj = (ArrayList<Weather>)objectInputStream.readObject();
+            DataBase db = (DataBase)objectInputStream.readObject();
             objectInputStream.close();
             fileIn.close();
-            Log.v("read", "read aaa");
             System.err.println("Database has been read from the file");
-            controller.dailyForecast = obj;
-            DisplayWeatherActivity root = (DisplayWeatherActivity)context;
-//            root.update()
+            dailyForecast = db.getDailyForecast();
+            timezone = db.getTimezone();
+            time = db.getTime();
+
+            Controller.notificationCenter.notifyObservers();
+            return dailyForecast;
 
         } catch (Exception ex) {
             ex.printStackTrace();
+            return null;
         }
     }
 
