@@ -33,7 +33,9 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
         notificationCenter.register(this);
 
         setContentView(R.layout.activity_main);
-
+//        Weather w = new Weather("1", "2", "3", "4", "5", "6", "7", "8", "9");
+//        controller.getDailyForecast().add(w);
+//        controller.writeDataToFile();
 
         final EditText searchBox = findViewById(R.id.search_box);
         searchBox.addTextChangedListener(new TextWatcher()

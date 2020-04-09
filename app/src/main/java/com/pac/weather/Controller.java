@@ -1,5 +1,6 @@
 package com.pac.weather;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -7,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -21,11 +23,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Controller {
-    private final String filePath = "res/data.txt";
+    File path = Environment.getExternalStoragePublicDirectory(
+            Environment.DIRECTORY_PICTURES);
+    File f = new File(path, "data.txt");
+//    private final String filePath = "/Users/roodabeh/Desktop/Files/Projects/Android/HW_01/app/src/main/res/data.txt";
     private static NotificationCenter notificationCenter;
     private static Controller controller;
     public DispatchQueue dispatchQueue = new DispatchQueue("Controller");
-    private ArrayList<Weather> dailyForecast;
+    private ArrayList<Weather> dailyForecast = new ArrayList<>();
     private String timezone;
     private long time;
 
@@ -40,10 +45,10 @@ public class Controller {
         return controller;
     }
 
-    private void writeDataToFile(){
+     void writeDataToFile(){
         try {
 
-            FileOutputStream file = new FileOutputStream(filePath);
+            FileOutputStream file = new FileOutputStream(f);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(file);
             objectOutputStream.writeObject(dailyForecast);
             objectOutputStream.close();
@@ -57,7 +62,7 @@ public class Controller {
     ArrayList<Weather> readDataFromFile(){
         try {
 
-            FileInputStream fileIn = new FileInputStream(filePath);
+            FileInputStream fileIn = new FileInputStream(f);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileIn);
             ArrayList<Weather> obj = (ArrayList<Weather>)objectInputStream.readObject();
             objectInputStream.close();
