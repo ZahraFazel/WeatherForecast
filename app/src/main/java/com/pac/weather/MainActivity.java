@@ -8,13 +8,10 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -49,7 +46,8 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
             @Override
             public void afterTextChanged(Editable editable) {
                 if (searchBox.getText().length() != 0) {
-                    controller.dispatchQueue.postRunnable(new Runnable() {
+                    if (checkConnection())
+                        controller.dispatchQueue.postRunnable(new Runnable() {
                         @Override
                         public void run() {
                             String url = getString(R.string.base_url) +
@@ -58,6 +56,13 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
                             controller.makeRequest(MainActivity.this, url, "MapBox");
                         }
                     });
+                    else{
+                        controller.dispatchQueue.postRunnable(new Runnable() {
+                            @Override
+                            public void run() { controller.readDataFromFile(); }
+                        });
+                    }
+
                 }
             }
 

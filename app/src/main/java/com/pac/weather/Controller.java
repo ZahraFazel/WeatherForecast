@@ -26,6 +26,7 @@ public class Controller {
     private static NotificationCenter notificationCenter;
     private static Controller controller;
     public DispatchQueue dispatchQueue = new DispatchQueue("Controller");
+    private ArrayList<Weather> dailyForecast;
 
     private Controller() {
     }
@@ -38,7 +39,7 @@ public class Controller {
         return controller;
     }
 
-    private void writeDataToFile(ArrayList<Weather> dailyForecast){
+    private void writeDataToFile(){
         try {
 
             FileOutputStream file = new FileOutputStream(filePath);
@@ -52,7 +53,7 @@ public class Controller {
         }
     }
 
-    private ArrayList<Weather> readDataFromFile(){
+    ArrayList<Weather> readDataFromFile(){
         try {
 
             FileInputStream fileIn = new FileInputStream(filePath);
@@ -104,11 +105,11 @@ public class Controller {
                         forecast.getString("humidity"),
                         forecast.getString("pressure"),
                         forecast.getString("windSpeed"));
-                activity.getDailyForecast().add(weather);
+                dailyForecast.add(weather);
                 if (i > 10)
                     break;
             }
-            writeDataToFile(activity.getDailyForecast());
+            writeDataToFile();
             activity.update();
 
         } catch (JSONException e) {
@@ -134,4 +135,15 @@ public class Controller {
             e.printStackTrace();
         }
     }
+
+    void newDailyForecast(){
+        dailyForecast = new ArrayList<>();
+    }
+
+    ArrayList<Weather> getDailyForecast()
+    {
+        return dailyForecast;
+    }
+
+
 }
