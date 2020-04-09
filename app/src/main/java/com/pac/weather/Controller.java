@@ -82,6 +82,7 @@ public class Controller {
     }
 
     public void makeRequest(final Context root, String url, final String parserKind) {
+        notificationCenter.waitObservers();
         RequestQueue queue = Volley.newRequestQueue(root);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -103,6 +104,7 @@ public class Controller {
         });
 
         queue.add(stringRequest);
+        notificationCenter.releaseObservers();
     }
 
 
