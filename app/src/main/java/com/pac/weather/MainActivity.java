@@ -131,4 +131,13 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
                 activeNetwork.isConnectedOrConnecting();
     }
 
+    @Override
+    public void oWait() {
+
+    }
+
+    @Override
+    public void release() {
+
+    }
 }

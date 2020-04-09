@@ -169,4 +169,14 @@ public class DisplayWeatherActivity extends AppCompatActivity implements Notific
         Toast toast = Toast.makeText(this, msg, duration);
         toast.show();
     }
+
+    @Override
+    public void oWait() {
+
+    }
+
+    @Override
+    public void release() {
+
+    }
 }

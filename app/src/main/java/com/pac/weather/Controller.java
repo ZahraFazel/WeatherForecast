@@ -9,11 +9,7 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.os.Environment;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,11 +23,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Controller {
-//    File path = Environment.getExternalStoragePublicDirectory(
-//            Environment.DIRECTORY_PICTURES);
-//    File f = new File(path, "data.txt");
-//    private final String filePath = "/media/mohammad/F/data.txt";
-    private final String filePath = "/Users/roodabeh/Desktop/Files/Projects/Android/HW_01/app/src/main/res/data.txt";
     private static NotificationCenter notificationCenter;
     private static Controller controller;
     public DispatchQueue dispatchQueue = new DispatchQueue("Controller");
@@ -55,9 +46,6 @@ public class Controller {
 
             FileOutputStream file = context.openFileOutput("data.txt", Context.MODE_PRIVATE);
 
-
-//            FileOutputStream file = new FileOutputStream(filePath);
-////            FileOutputStream file = new FileOutputStream(f);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(file);
             objectOutputStream.writeObject(new DataBase(dailyForecast, timezone, time));
             objectOutputStream.flush();
@@ -74,8 +62,6 @@ public class Controller {
 
             FileInputStream fileIn = context.openFileInput("data.txt");
 
-//            FileInputStream fileIn = new FileInputStream(filePath);
-//            FileInputStream fileIn = new FileInputStream(f);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileIn);
             DataBase db = (DataBase)objectInputStream.readObject();
             objectInputStream.close();
