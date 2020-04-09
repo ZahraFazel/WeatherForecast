@@ -1,8 +1,9 @@
 package com.pac.weather;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 
-public class Weather
+public class Weather implements Serializable
 {
     private String summery;
     private String humidity;
