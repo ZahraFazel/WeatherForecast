@@ -41,7 +41,7 @@ public class Controller {
         return controller;
     }
 
-     void writeDataToFile(Context context){
+    void writeDataToFile(Context context){
         try {
 
             FileOutputStream file = context.openFileOutput("data.txt", Context.MODE_PRIVATE);
@@ -122,28 +122,22 @@ public class Controller {
 
             for (int i = 0; i < jsonArrDaily.length(); i++)
             {
-                try
-                {
-                    JSONObject forecast = jsonArrDaily.getJSONObject(i);
-                    String summary = forecast.getString("summary");
-                    String humidity = forecast.getString("humidity");
-                    String pressure = forecast.getString("pressure");
-                    String windSpeed = forecast.getString("windSpeed");
-                    String icon = forecast.getString("icon");
-                    String sunrise = forecast.getString("sunriseTime");
-                    String sunset = forecast.getString("sunsetTime");
-                    String temperatureHigh = forecast.getString("temperatureHigh");
-                    String temperatureLow = forecast.getString("temperatureLow");
-                    Weather weather = new Weather(summary, humidity, pressure, windSpeed, icon, sunrise,
-                            sunset, temperatureHigh, temperatureLow);
-                    dailyForecast.add(weather);
-                    if (i > 10)
-                        break;
-                }
-                catch ( Exception e )
-                {
-                    e.printStackTrace();
-                }
+                JSONObject forecast = jsonArrDaily.getJSONObject(i);
+                String summary = forecast.getString("summary");
+                String humidity = forecast.getString("humidity");
+                String pressure = forecast.getString("pressure");
+                String windSpeed = forecast.getString("windSpeed");
+                String icon = forecast.getString("icon");
+                String sunrise = forecast.getString("sunriseTime");
+                String sunset = forecast.getString("sunsetTime");
+                String temperatureHigh = forecast.getString("temperatureHigh");
+                String temperatureLow = forecast.getString("temperatureLow");
+
+                Weather weather = new Weather(summary, humidity, pressure, windSpeed, icon, sunrise,
+                        sunset, temperatureHigh, temperatureLow);
+                dailyForecast.add(weather);
+                if (i > 10)
+                    break;
             }
             writeDataToFile(activity);
             activity.update();

@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
     private Controller controller = Controller.getInstance(notificationCenter);
 
     ArrayList<City> cities = new ArrayList<>();
-    int counter = 0;
 
     public ArrayList<City> getCities()
     {
@@ -36,11 +35,6 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
         notificationCenter.register(this);
 
         setContentView(R.layout.activity_main);
-        try
-        {
-            this.getSupportActionBar().hide();
-        }
-        catch (NullPointerException e){}
 
         if(!checkConnection()){
             Intent intent = new Intent(this, DisplayWeatherActivity.class);
@@ -61,18 +55,17 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
             @Override
             public void afterTextChanged(Editable editable) {
                 if (searchBox.getText().length() != 0) {
-                    MainActivity.this.oWait();
                     if (checkConnection())
                         controller.dispatchQueue.postRunnable(new Runnable() {
-                        @Override
-                        public void run()
-                        {
-                            String url = getString(R.string.base_url) +
-                                    searchBox.getText().toString() + getString(R.string.request_format) +
-                                    getString(R.string.MapBox_token);
-                            controller.makeRequest(MainActivity.this, url, "MapBox");
-                        }
-                    });
+                            @Override
+                            public void run()
+                            {
+                                String url = getString(R.string.base_url) +
+                                        searchBox.getText().toString() + getString(R.string.request_format) +
+                                        getString(R.string.MapBox_token);
+                                controller.makeRequest(MainActivity.this, url, "MapBox");
+                            }
+                        });
 
                 }
             }
@@ -112,8 +105,6 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
                 CityListAdapter adapter = new CityListAdapter(MainActivity.this, mainTitle, subtitle);
                 ListView list = findViewById(R.id.list);
                 list.setAdapter(adapter);
-
-                MainActivity.this.release();
             }
         });
     }
@@ -143,14 +134,29 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
 
     @Override
     public void oWait() {
-//        this.counter++;
-//        TextView textView = this.findViewById(R.id.loading);
-//        textView.setText(getString(R.string.loading));
+        runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                TextView textView = findViewById(R.id.loading);
+                textView.setText(getString(R.string.loading));
+            }
+        });
+
     }
 
     @Override
     public void release() {
-//        TextView loading = findViewById(R.id.loading);
-//        loading.setText("");
+        runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                TextView loading = findViewById(R.id.loading);
+                loading.setText("");
+            }
+        });
+
     }
 }
