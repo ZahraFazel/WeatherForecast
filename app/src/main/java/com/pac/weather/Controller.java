@@ -111,26 +111,32 @@ public class Controller {
             JSONObject jsonObjDaily = new JSONObject(response).getJSONObject("daily");
             JSONArray jsonArrDaily = jsonObjDaily.getJSONArray("data");
             time = Long.parseLong((new JSONObject(response)).getJSONObject("currently").getString("time"));
-            timezone = (new JSONObject(response)).getString("timezone");
+//            timezone = (new JSONObject(response)).getString("timezone");
 
             for (int i = 0; i < jsonArrDaily.length(); i++)
             {
-                JSONObject forecast = jsonArrDaily.getJSONObject(i);
-                String summary = forecast.getString("summary");
-                String humidity = forecast.getString("humidity");
-                String pressure = forecast.getString("pressure");
-                String windSpeed = forecast.getString("windSpeed");
-                String icon = forecast.getString("icon");
-                String sunrise = forecast.getString("sunriseTime");
-                String sunset = forecast.getString("sunsetTime");
-                String temperatureHigh = forecast.getString("temperatureHigh");
-                String temperatureLow = forecast.getString("temperatureLow");
-
-                Weather weather = new Weather(summary, humidity, pressure, windSpeed, icon, sunrise,
-                        sunset, temperatureHigh, temperatureLow);
-                dailyForecast.add(weather);
-                if (i > 10)
-                    break;
+                try
+                {
+                    JSONObject forecast = jsonArrDaily.getJSONObject(i);
+                    String summary = forecast.getString("summary");
+                    String humidity = forecast.getString("humidity");
+                    String pressure = forecast.getString("pressure");
+                    String windSpeed = forecast.getString("windSpeed");
+                    String icon = forecast.getString("icon");
+                    String sunrise = forecast.getString("sunriseTime");
+                    String sunset = forecast.getString("sunsetTime");
+                    String temperatureHigh = forecast.getString("temperatureHigh");
+                    String temperatureLow = forecast.getString("temperatureLow");
+                    Weather weather = new Weather(summary, humidity, pressure, windSpeed, icon, sunrise,
+                            sunset, temperatureHigh, temperatureLow);
+                    dailyForecast.add(weather);
+                    if (i > 10)
+                        break;
+                }
+                catch ( Exception e )
+                {
+                    e.printStackTrace();
+                }
             }
             writeDataToFile();
             activity.update();

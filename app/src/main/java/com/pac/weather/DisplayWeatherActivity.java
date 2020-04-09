@@ -32,6 +32,7 @@ public class DisplayWeatherActivity extends AppCompatActivity implements Notific
         notificationCenter.register(this);
 
         setContentView(R.layout.activity_weather);
+        setTitle("Weather Forecast");
 
         Intent intent = getIntent();
         try {

@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.pac.weather.MainActivity">
+    tools:context="com.pac.weather.MainActivity"
+    android:background="@drawable/earth">
 
     <EditText
         android:id="@+id/search_box"
@@ -14,7 +15,8 @@
         android:inputType="textPersonName"
         android:fontFamily="sans-serif"
         android:textSize="20sp"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:background="@color/nightText"/>
 
     <ListView
         android:id="@+id/list"
