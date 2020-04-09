@@ -21,7 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Controller {
-    private final String filePath = "res/data.txt";
+    private final String filePath = "D:\\University\\Mobile Programming\\Android-Project1\\app\\src\\main\\java\\com\\pac\\weather\\data.txt";
     private static NotificationCenter notificationCenter;
     private static Controller controller;
     public DispatchQueue dispatchQueue = new DispatchQueue("Controller");
