@@ -108,6 +108,7 @@ public class Controller {
                 if (i > 10)
                     break;
             }
+            writeDataToFile(activity.getDailyForecast());
             activity.update();
 
         } catch (JSONException e) {
