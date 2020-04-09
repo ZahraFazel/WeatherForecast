@@ -26,10 +26,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Controller {
-    File path = Environment.getExternalStoragePublicDirectory(
-            Environment.DIRECTORY_PICTURES);
-    File f = new File(path, "data.txt");
-//    private final String filePath = "/Users/roodabeh/Desktop/Files/Projects/Android/HW_01/app/src/main/res/data.txt";
+//    File path = Environment.getExternalStoragePublicDirectory(
+//            Environment.DIRECTORY_PICTURES);
+//    File f = new File(path, "data.txt");
+    private final String filePath = "/Users/roodabeh/Desktop/Files/Projects/Android/HW_01/app/src/main/res/data.txt";
     private static NotificationCenter notificationCenter;
     private static Controller controller;
     public DispatchQueue dispatchQueue = new DispatchQueue("Controller");
@@ -50,10 +50,11 @@ public class Controller {
 
      void writeDataToFile(){
         try {
-
-            FileOutputStream file = new FileOutputStream(f);
+            FileOutputStream file = new FileOutputStream(filePath);
+//            FileOutputStream file = new FileOutputStream(f);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(file);
             objectOutputStream.writeObject(dailyForecast);
+            objectOutputStream.flush();
             objectOutputStream.close();
             file.close();
             System.err.println("Database was succesfully written to the file");
@@ -64,8 +65,8 @@ public class Controller {
 
     ArrayList<Weather> readDataFromFile(){
         try {
-
-            FileInputStream fileIn = new FileInputStream(f);
+            FileInputStream fileIn = new FileInputStream(filePath);
+//            FileInputStream fileIn = new FileInputStream(f);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileIn);
             ArrayList<Weather> obj = (ArrayList<Weather>)objectInputStream.readObject();
             objectInputStream.close();
