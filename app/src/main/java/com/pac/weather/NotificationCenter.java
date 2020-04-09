@@ -15,6 +15,8 @@ public class NotificationCenter {
 
     public interface Observer {
         void update();
+        void oWait();
+        void release();
     }
 
     public void register(Observer observer){
@@ -23,6 +25,18 @@ public class NotificationCenter {
 
     public void unRegister(Observer observer) {
         observers.remove(observer);
+    }
+
+    public void waitObservers(){
+        for (Observer observer : observers) {
+            observer.oWait();
+        }
+    }
+
+    public void releaseObservers(){
+        for (Observer observer : observers) {
+            observer.release();
+        }
     }
 
     public void notifyObservers(){
