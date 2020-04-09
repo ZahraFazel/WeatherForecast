@@ -18,4 +18,5 @@
     <string name="high">High</string>
     <string name="low">Low</string>
     <string name="temperature">Tem</string>
+    <string name="loading">loading</string>
 </resources>

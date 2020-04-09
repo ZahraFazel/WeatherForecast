@@ -2,7 +2,6 @@ package com.pac.weather;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -14,7 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -24,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
     private Controller controller = Controller.getInstance(notificationCenter);
 
     ArrayList<City> cities = new ArrayList<>();
+    int counter = 0;
 
     public ArrayList<City> getCities()
     {
@@ -43,8 +43,6 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
             return;
         }
 
-        setTitle("Weather Forecast");
-
 
         final EditText searchBox = findViewById(R.id.search_box);
         searchBox.addTextChangedListener(new TextWatcher()
@@ -58,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
             @Override
             public void afterTextChanged(Editable editable) {
                 if (searchBox.getText().length() != 0) {
+                    MainActivity.this.oWait();
                     if (checkConnection())
                         controller.dispatchQueue.postRunnable(new Runnable() {
                         @Override
@@ -108,6 +107,8 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
                 CityListAdapter adapter = new CityListAdapter(MainActivity.this, mainTitle, subtitle);
                 ListView list = findViewById(R.id.list);
                 list.setAdapter(adapter);
+
+                MainActivity.this.release();
             }
         });
     }
@@ -135,4 +136,16 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
                 activeNetwork.isConnectedOrConnecting();
     }
 
+    @Override
+    public void oWait() {
+        this.counter++;
+        TextView textView = this.findViewById(R.id.loading);
+        textView.setText(getString(R.string.loading));
+    }
+
+    @Override
+    public void release() {
+        TextView loading = findViewById(R.id.loading);
+        loading.setText("");
+    }
 }

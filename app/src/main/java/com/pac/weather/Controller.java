@@ -9,9 +9,7 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.os.Environment;
 import android.util.Log;
-
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -25,7 +23,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Controller {
-
     private static NotificationCenter notificationCenter;
     private static Controller controller;
     public DispatchQueue dispatchQueue = new DispatchQueue("Controller");
@@ -84,6 +81,7 @@ public class Controller {
     }
 
     public void makeRequest(final Context root, String url, final String parserKind) {
+//        notificationCenter.waitObservers();
         RequestQueue queue = Volley.newRequestQueue(root);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -105,6 +103,7 @@ public class Controller {
         });
 
         queue.add(stringRequest);
+//        notificationCenter.releaseObservers();
     }
 
 
