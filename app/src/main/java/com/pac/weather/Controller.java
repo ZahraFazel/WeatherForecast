@@ -30,8 +30,8 @@ public class Controller {
 //    File path = Environment.getExternalStoragePublicDirectory(
 //            Environment.DIRECTORY_PICTURES);
 //    File f = new File(path, "data.txt");
-    private final String filePath = "/media/mohammad/F/data.txt";
-//    private final String filePath = "/Users/roodabeh/Desktop/Files/Projects/Android/HW_01/app/src/main/res/data.txt";
+//    private final String filePath = "/media/mohammad/F/data.txt";
+    private final String filePath = "/Users/roodabeh/Desktop/Files/Projects/Android/HW_01/app/src/main/res/data.txt";
     private static NotificationCenter notificationCenter;
     private static Controller controller;
     public DispatchQueue dispatchQueue = new DispatchQueue("Controller");
@@ -59,7 +59,7 @@ public class Controller {
 //            FileOutputStream file = new FileOutputStream(filePath);
 ////            FileOutputStream file = new FileOutputStream(f);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(file);
-            objectOutputStream.writeObject(dailyForecast);
+            objectOutputStream.writeObject(new DataBase(dailyForecast, timezone, time));
             objectOutputStream.flush();
             objectOutputStream.close();
             file.close();
@@ -77,15 +77,17 @@ public class Controller {
 //            FileInputStream fileIn = new FileInputStream(filePath);
 //            FileInputStream fileIn = new FileInputStream(f);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileIn);
-            ArrayList<Weather> obj = (ArrayList<Weather>)objectInputStream.readObject();
+            DataBase db = (DataBase)objectInputStream.readObject();
             objectInputStream.close();
             fileIn.close();
             Log.v("read", "read aaa");
             System.err.println("Database has been read from the file");
-            controller.dailyForecast = obj;
+            dailyForecast = db.getDailyForecast();
+            timezone = db.getTimezone();
+            time = db.getTime();
             DisplayWeatherActivity root = (DisplayWeatherActivity)context;
             root.update();
-            return obj;
+            return dailyForecast;
 
         } catch (Exception ex) {
             ex.printStackTrace();
