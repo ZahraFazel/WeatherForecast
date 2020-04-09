@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
 
     public void sendMessageToDisplayActivity(String center)
     {
-        Intent intent = new Intent(this, DisplayWeahterActivity.class);
+        Intent intent = new Intent(this, DisplayWeatherActivity.class);
         String key = getString(R.string.msg_inflater_key);
         intent.putExtra(key, center);
         startActivity(intent);
