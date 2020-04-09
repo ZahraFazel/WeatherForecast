@@ -83,7 +83,11 @@ public class Controller {
     public void makeRequest(final Context root, String url, final String parserKind) {
 //        notificationCenter.waitObservers();
         RequestQueue queue = Volley.newRequestQueue(root);
-
+        try {
+            Thread.currentThread().sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
