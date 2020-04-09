@@ -2,7 +2,7 @@
     <string name="app_name">weather</string>
     <string name="search_box">search a city</string>
     <string name="search_box_hint">tehran</string>
-    <string name="loading_data">please wait ...</string>
+    <string name="loading_data">Please wait...</string>
     <string name="msg_inflater_key">tehran</string>
     <string name="base_url">https://api.mapbox.com/geocoding/v5/mapbox.places/</string>
     <string name="request_format">.json?access_token=</string>

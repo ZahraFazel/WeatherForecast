@@ -123,7 +123,8 @@ public class Controller {
             activity.getCities().clear();
             for (int i = 0; i < cityArray.length(); i++) {
                 JSONObject place = cityArray.getJSONObject(i);
-                City city = new City(place.getString("place_name"), place.getString("center"));
+                City city = new City(place.getString("text"), place.getString("place_name"),
+                        place.getString("center"));
                 activity.getCities().add(city);
             }
             activity.update();
