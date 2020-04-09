@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -33,6 +34,11 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
         notificationCenter.register(this);
 
         setContentView(R.layout.activity_main);
+
+        if(!checkConnection()){
+            Intent intent = new Intent(this, DisplayWeatherActivity.class);
+            startActivity(intent);
+        }
 
 
         final EditText searchBox = findViewById(R.id.search_box);
@@ -115,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
 
     public void sendMessageToDisplayActivity(String center)
     {
-        Intent intent = new Intent(this, DisplayWeahterActivity.class);
+        Intent intent = new Intent(this, DisplayWeatherActivity.class);
         String key = getString(R.string.msg_inflater_key);
         intent.putExtra(key, center);
         startActivity(intent);

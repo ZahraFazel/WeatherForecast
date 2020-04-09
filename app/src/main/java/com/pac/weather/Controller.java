@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 import android.content.Context;
@@ -24,11 +25,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Controller {
-    private final String filePath = "";
+    private final String filePath = "data.txt";
     private static NotificationCenter notificationCenter;
     private static Controller controller;
     public DispatchQueue dispatchQueue = new DispatchQueue("Controller");
     private ArrayList<Weather> dailyForecast;
+    private String timezone;
+    private long time;
 
     private Controller() {
     }
@@ -87,12 +90,8 @@ public class Controller {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if(parserKind.equals("skyDark")){
-                    DisplayWeahterActivity context = (DisplayWeahterActivity)root;
-                    CharSequence text = context.getString(R.string.ApiError);
-                    int duration = Toast.LENGTH_SHORT;
-
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
+                    DisplayWeatherActivity context = (DisplayWeatherActivity)root;
+                    context.createToast(context.getString(R.string.ApiError));
                 }
             }
         });
@@ -103,17 +102,27 @@ public class Controller {
 
     private void parseSkyDarkJson(String response, Context root) {
         try {
-            DisplayWeahterActivity activity = (DisplayWeahterActivity) root;
-            JSONObject jsonObj = new JSONObject(response).getJSONObject("daily");
-            JSONArray jsonArr = jsonObj.getJSONArray("data");
+            DisplayWeatherActivity activity = (DisplayWeatherActivity) root;
+            JSONObject jsonObjDaily = new JSONObject(response).getJSONObject("daily");
+            JSONArray jsonArrDaily = jsonObjDaily.getJSONArray("data");
+            time = Long.parseLong((new JSONObject(response)).getJSONObject("currently").getString("time"));
+            timezone = (new JSONObject(response)).getString("timezone");
 
-            for (int i = 0; i < jsonArr.length(); i++) {
-                JSONObject forecast = jsonArr.getJSONObject(i);
-                Weather weather = new Weather(forecast.getString("summary"),
-                        forecast.getString("temperature"),
-                        forecast.getString("humidity"),
-                        forecast.getString("pressure"),
-                        forecast.getString("windSpeed"));
+            for (int i = 0; i < jsonArrDaily.length(); i++)
+            {
+                JSONObject forecast = jsonArrDaily.getJSONObject(i);
+                String summary = forecast.getString("summary");
+                String humidity = forecast.getString("humidity");
+                String pressure = forecast.getString("pressure");
+                String windSpeed = forecast.getString("windSpeed");
+                String icon = forecast.getString("icon");
+                String sunrise = forecast.getString("sunriseTime");
+                String sunset = forecast.getString("sunsetTime");
+                String temperatureHigh = forecast.getString("temperatureHigh");
+                String temperatureLow = forecast.getString("temperatureLow");
+
+                Weather weather = new Weather(summary, humidity, pressure, windSpeed, icon, sunrise,
+                        sunset, temperatureHigh, temperatureLow);
                 dailyForecast.add(weather);
                 if (i > 10)
                     break;
@@ -154,5 +163,13 @@ public class Controller {
         return dailyForecast;
     }
 
+    public long getTime()
+    {
+        return time;
+    }
 
+    public String getTimezone()
+    {
+        return timezone;
+    }
 }

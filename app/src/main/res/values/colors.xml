@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="light_gray">#C6C6C6</color>
+    <color name="dayText">#000000</color>
+    <color name="nightText">#FFFFFF</color>
 </resources>

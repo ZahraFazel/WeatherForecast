@@ -5,26 +5,27 @@
     android:orientation="horizontal" >
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="150dp"
         android:id="@+id/layout">
         <ImageView
             android:id="@+id/icon"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:padding="5dp" />
         <TextView
-            android:id="@+id/day"
+            android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/day"
             android:textStyle="bold"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginTop="10dp"
             android:padding="2dp"
             android:fontFamily="sans-serif"
             android:textSize="20sp"
-            android:textColor="@android:color/black"
+            android:textColor="@color/dayText"
             android:layout_toEndOf="@+id/icon"/>
         <TextView
             android:id="@+id/summary"
@@ -32,23 +33,26 @@
             android:layout_height="wrap_content"
             android:text="@string/summary"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="40dp"
             android:layout_toEndOf="@+id/icon"
             android:fontFamily="sans-serif"
             android:padding="2dp"
             android:textSize="20sp"
-            android:textColor="@android:color/black"
-            android:layout_below="@+id/day"/>
+            android:textColor="@color/dayText"
+            android:layout_below="@+id/date"/>
         <TextView
             android:id="@+id/wind"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/windSpeed"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
             android:padding="2dp"
             android:layout_toEndOf="@+id/icon"
             android:fontFamily="sans-serif"
             android:textSize="14sp"
-            android:textColor="@android:color/black"
+            android:textColor="@color/dayText"
             android:layout_below="@+id/summary"/>
         <TextView
             android:id="@+id/pressure"
@@ -56,11 +60,12 @@
             android:layout_height="wrap_content"
             android:text="@string/pressure"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
             android:padding="2dp"
             android:layout_toEndOf="@+id/wind"
             android:fontFamily="sans-serif"
             android:textSize="14sp"
-            android:textColor="@android:color/black"
+            android:textColor="@color/dayText"
             android:layout_below="@+id/summary"/>
         <TextView
             android:id="@+id/humidity"
@@ -68,11 +73,12 @@
             android:layout_height="wrap_content"
             android:text="@string/humidity"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
             android:padding="2dp"
             android:layout_toEndOf="@+id/pressure"
             android:fontFamily="sans-serif"
             android:textSize="14sp"
-            android:textColor="@android:color/black"
+            android:textColor="@color/dayText"
             android:layout_below="@+id/summary"/>
         <TextView
             android:id="@+id/low"
@@ -85,20 +91,7 @@
             android:layout_alignParentEnd="true"
             android:fontFamily="sans-serif"
             android:textSize="14sp"
-            android:textColor="@android:color/black" />
-        <TextView
-            android:id="@+id/temp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/temperature"
-            android:layout_marginTop="5dp"
-            android:padding="2dp"
-            android:layout_marginEnd="20dp"
-            android:layout_alignParentEnd="true"
-            android:fontFamily="sans-serif"
-            android:textSize="14sp"
-            android:textColor="@android:color/black"
-            android:layout_below="@+id/low"/>
+            android:textColor="@color/dayText" />
         <TextView
             android:id="@+id/high"
             android:layout_width="wrap_content"
@@ -110,7 +103,7 @@
             android:layout_alignParentEnd="true"
             android:fontFamily="sans-serif"
             android:textSize="14sp"
-            android:textColor="@android:color/black"
-            android:layout_below="@+id/temp"/>
+            android:textColor="@color/dayText"
+            android:layout_below="@+id/low"/>
     </RelativeLayout>
 </LinearLayout>

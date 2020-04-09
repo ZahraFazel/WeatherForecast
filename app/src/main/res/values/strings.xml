@@ -5,6 +5,7 @@
     <string name="loading_data">Please wait...</string>
     <string name="msg_inflater_key">tehran</string>
     <string name="ApiError">some thing went wrong</string>
+    <string name="offline_mode">you are offline</string>
     <string name="base_url">https://api.mapbox.com/geocoding/v5/mapbox.places/</string>
     <string name="request_format">.json?access_token=</string>
     <string name="MapBox_token">pk.eyJ1IjoiamFtc2hpZGk3OTkiLCJhIjoiY2s4YnNqemptMGZlbjNsbWp3enl3dmpjcSJ9.orLQ6mIxIczAo9KEaTq8Tg</string>
