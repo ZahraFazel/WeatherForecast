@@ -68,16 +68,6 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
 
         });
 
-//        final TextView tempTextView = findViewById(R.id.temp_text_view);
-//        tempTextView.setOnClickListener(new View.OnClickListener()
-//        {
-//            @Override
-//            public void onClick(View view)
-//            {
-//                sendMessageToDisplayActivity(tempTextView.getText().toString());
-//            }
-//        });
-
         final ListView list = findViewById(R.id.list);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
@@ -120,14 +110,8 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
         notificationCenter.unRegister(this);
     }
 
-    public void sendMessageToDisplayActivity(String cityName)
+    public void sendMessageToDisplayActivity(String center)
     {
-        String center = "";
-
-        for (City city : cities)
-            if (city.getName().equals(cityName))
-                center = city.getCenter();
-
         Intent intent = new Intent(this, DisplayWeahterActivity.class);
         String key = getString(R.string.msg_inflater_key);
         intent.putExtra(key, center);

@@ -8,4 +8,12 @@
     <string name="request_format">.json?access_token=</string>
     <string name="MapBox_token">pk.eyJ1IjoiamFtc2hpZGk3OTkiLCJhIjoiY2s4YnNqemptMGZlbjNsbWp3enl3dmpjcSJ9.orLQ6mIxIczAo9KEaTq8Tg</string>
     <string name="DarkSky_baseUrl">https://api.darksky.net/forecast/f9740eae0ff78489ad2d74d7c3e21844/</string>
+    <string name="day">Day</string>
+    <string name="summary">Summary</string>
+    <string name="windSpeed">Wind Speed</string>
+    <string name="pressure">Pressure</string>
+    <string name="humidity">Humidity</string>
+    <string name="high">High</string>
+    <string name="low">Low</string>
+    <string name="temperature">Tem</string>
 </resources>
