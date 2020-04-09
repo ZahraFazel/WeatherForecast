@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -84,7 +86,14 @@ public class Controller {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.v("errorDark", error.getMessage());
+                if(parserKind.equals("skyDark")){
+                    DisplayWeahterActivity context = (DisplayWeahterActivity)root;
+                    CharSequence text = context.getString(R.string.ApiError);
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
             }
         });
 
