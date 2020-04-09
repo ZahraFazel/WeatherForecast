@@ -113,7 +113,7 @@ public class Controller {
             JSONObject jsonObjDaily = new JSONObject(response).getJSONObject("daily");
             JSONArray jsonArrDaily = jsonObjDaily.getJSONArray("data");
             time = Long.parseLong((new JSONObject(response)).getJSONObject("currently").getString("time"));
-//            timezone = (new JSONObject(response)).getString("timezone");
+            timezone = (new JSONObject(response)).getString("timezone");
 
             for (int i = 0; i < jsonArrDaily.length(); i++)
             {

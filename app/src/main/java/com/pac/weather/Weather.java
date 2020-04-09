@@ -23,11 +23,11 @@ public class Weather implements Serializable
         this.icon = icon;
         this.sunrise = Integer.parseInt(sunrise);
         this.sunset = Integer.parseInt(sunset);
-        this.temperatureHigh = df.format( convertFToC(Double.parseDouble(temperatureHigh))) + " °C";
-        this.temperatureLow = df.format(convertFToC(Double.parseDouble(temperatureLow))) + " °C";
+        this.temperatureHigh = df.format(Double.parseDouble(temperatureHigh)) + " °C";
+        this.temperatureLow = df.format(Double.parseDouble(temperatureLow)) + " °C";
         this.humidity = df.format(Double.parseDouble(humidity)) + " %";
         this.pressure = df.format(Double.parseDouble(pressure)) + " hPa";
-        this.windSpeed = df.format(Double.parseDouble(windSpeed) * 1.609344) + " kPh";
+        this.windSpeed = Double.parseDouble(windSpeed) + " mPs";
     }
 
     public String getSummery()
@@ -75,8 +75,4 @@ public class Weather implements Serializable
         return temperatureLow;
     }
 
-    private double convertFToC(double num)
-    {
-        return (num - 32) * 5 / 9;
-    }
 }

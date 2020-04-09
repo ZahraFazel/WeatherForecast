@@ -32,7 +32,11 @@ public class DisplayWeatherActivity extends AppCompatActivity implements Notific
         notificationCenter.register(this);
 
         setContentView(R.layout.activity_weather);
-        setTitle("Weather Forecast");
+        try
+        {
+            this.getSupportActionBar().hide();
+        }
+        catch (NullPointerException e){}
 
         Intent intent = getIntent();
         try {
@@ -44,7 +48,9 @@ public class DisplayWeatherActivity extends AppCompatActivity implements Notific
                 @Override
                 public void run()
                 {
-                    String url = getString(R.string.DarkSky_baseUrl) + center;
+                    String[] coordinates = center.split(",");
+                    String url = getString(R.string.DarkSky_baseUrl) + coordinates[1] + "," +
+                            coordinates[0] + "?units=si";
                     controller.makeRequest(DisplayWeatherActivity.this, url, "skyDark");
                 }
             });
@@ -82,7 +88,7 @@ public class DisplayWeatherActivity extends AppCompatActivity implements Notific
                 Date date = new Date(controller.getTime() * 1000);
                 Calendar cal = Calendar.getInstance(TimeZone.getTimeZone(controller.getTimezone()));
                 cal.setTime(date);
-                int dayWeek = cal.get(Calendar.DAY_OF_WEEK_IN_MONTH);
+                int dayWeek = cal.get(Calendar.DAY_OF_WEEK);
                 for( Weather weather : controller.getDailyForecast() )
                 {
                     day[i] = getWeekDayName(dayWeek) + ", " +
@@ -97,7 +103,7 @@ public class DisplayWeatherActivity extends AppCompatActivity implements Notific
                     low[i] = weather.getTemperatureLow();
                     i++;
                     cal.add(Calendar.DATE, 1);
-                    dayWeek = (dayWeek + 1) % 7;
+                    dayWeek = dayWeek % 7 + 1;
                 }
 
                 RelativeLayout relativeLayout = findViewById(R.id.relLayout);
@@ -152,13 +158,13 @@ public class DisplayWeatherActivity extends AppCompatActivity implements Notific
     {
         switch (weekDay)
         {
-            case 0: return "Mon";
-            case 1: return "Tue";
-            case 2: return "Wed";
-            case 3: return "Thu";
-            case 4: return "Fri";
-            case 5: return "Sat";
-            case 6: return "Sun";
+            case 1:return "Sun";
+            case 2: return "Mon";
+            case 3: return "Tue";
+            case 4: return "Wed";
+            case 5: return "Thu";
+            case 6: return "Fri";
+            case 7: return "Sat";
             default:return "";
         }
     }

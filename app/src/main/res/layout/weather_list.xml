@@ -5,12 +5,12 @@
     android:orientation="horizontal" >
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="120dp"
         android:id="@+id/layout">
         <ImageView
             android:id="@+id/icon"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:padding="5dp" />
         <TextView
             android:id="@+id/date"
@@ -47,11 +47,11 @@
             android:layout_height="wrap_content"
             android:text="@string/windSpeed"
             android:layout_marginStart="10dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="5dp"
             android:padding="2dp"
             android:layout_toEndOf="@+id/icon"
             android:fontFamily="sans-serif"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textColor="@color/dayText"
             android:layout_below="@+id/summary"/>
         <TextView
@@ -61,11 +61,11 @@
             android:text="@string/pressure"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="5dp"
             android:padding="2dp"
             android:layout_toEndOf="@+id/wind"
             android:fontFamily="sans-serif"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textColor="@color/dayText"
             android:layout_below="@+id/summary"/>
         <TextView
@@ -74,11 +74,11 @@
             android:layout_height="wrap_content"
             android:text="@string/humidity"
             android:layout_marginStart="10dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="5dp"
             android:padding="2dp"
             android:layout_toEndOf="@+id/pressure"
             android:fontFamily="sans-serif"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textColor="@color/dayText"
             android:layout_below="@+id/summary"/>
         <TextView
