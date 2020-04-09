@@ -66,13 +66,12 @@ public class Controller {
             DataBase db = (DataBase)objectInputStream.readObject();
             objectInputStream.close();
             fileIn.close();
-            Log.v("read", "read aaa");
             System.err.println("Database has been read from the file");
             dailyForecast = db.getDailyForecast();
             timezone = db.getTimezone();
             time = db.getTime();
-            DisplayWeatherActivity root = (DisplayWeatherActivity)context;
-            root.update();
+
+            Controller.notificationCenter.notifyObservers();
             return dailyForecast;
 
         } catch (Exception ex) {
