@@ -100,7 +100,7 @@ public class Controller {
             for (int i = 0; i < jsonArr.length(); i++) {
                 JSONObject forecast = jsonArr.getJSONObject(i);
                 Weather weather = new Weather(forecast.getString("summary"),
-                        forecast.getString("summary"),
+                        forecast.getString("temperature"),
                         forecast.getString("humidity"),
                         forecast.getString("pressure"),
                         forecast.getString("windSpeed"));
