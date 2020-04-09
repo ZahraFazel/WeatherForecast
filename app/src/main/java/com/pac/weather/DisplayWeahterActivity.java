@@ -15,17 +15,12 @@ public class DisplayWeahterActivity extends AppCompatActivity implements Notific
     private Controller controller = Controller.getInstance(notificationCenter);
 
     private String center;
-    private ArrayList<Weather> dailyForecast;
 
     public String getCenter()
     {
         return center;
     }
 
-    public ArrayList<Weather> getDailyForecast()
-    {
-        return dailyForecast;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -34,11 +29,12 @@ public class DisplayWeahterActivity extends AppCompatActivity implements Notific
         notificationCenter.register(this);
 
         setContentView(R.layout.weather_list);
-        dailyForecast = new ArrayList<>();
+
 
         Intent intent = getIntent();
         String msgKey = getString(R.string.msg_inflater_key);
         center = intent.getStringExtra(msgKey).replace("[", "").replace("]", "");
+        controller.newDailyForecast();
         controller.dispatchQueue.postRunnable(new Runnable()
         {
             @Override
@@ -63,11 +59,11 @@ public class DisplayWeahterActivity extends AppCompatActivity implements Notific
                 //TODO: create recycler view for list representation
 //                TextView textView = findViewById(R.id.textView);
 //                textView.setText(dailyForecast.get(0).getSummery());
-                System.out.println(dailyForecast.get(0).getSummery());
-                System.out.println(dailyForecast.get(0).getWindSpeed());
-                System.out.println(dailyForecast.get(0).getHumidity());
-                System.out.println(dailyForecast.get(0).getPressure());
-                System.out.println(dailyForecast.get(0).getTemperature());;
+                System.out.println(controller.getDailyForecast().get(0).getSummery());
+                System.out.println(controller.getDailyForecast().get(0).getWindSpeed());
+                System.out.println(controller.getDailyForecast().get(0).getHumidity());
+                System.out.println(controller.getDailyForecast().get(0).getPressure());
+                System.out.println(controller.getDailyForecast().get(0).getTemperature());;
             }
         });
     }

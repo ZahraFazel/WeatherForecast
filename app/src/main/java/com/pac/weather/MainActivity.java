@@ -3,16 +3,15 @@ package com.pac.weather;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -29,8 +28,7 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         notificationCenter.register(this);
 
@@ -47,12 +45,10 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
             @Override
-            public void afterTextChanged(Editable editable)
-            {
-                if (searchBox.getText().length() != 0)
-                {
-                    controller.dispatchQueue.postRunnable(new Runnable()
-                    {
+            public void afterTextChanged(Editable editable) {
+                if (searchBox.getText().length() != 0) {
+                    if (checkConnection())
+                        controller.dispatchQueue.postRunnable(new Runnable() {
                         @Override
                         public void run()
                         {
@@ -62,6 +58,13 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
                             controller.makeRequest(MainActivity.this, url, "MapBox");
                         }
                     });
+                    else{
+                        controller.dispatchQueue.postRunnable(new Runnable() {
+                            @Override
+                            public void run() { controller.readDataFromFile(); }
+                        });
+                    }
+
                 }
             }
 
@@ -116,6 +119,15 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
         String key = getString(R.string.msg_inflater_key);
         intent.putExtra(key, center);
         startActivity(intent);
+    }
+
+    private boolean checkConnection() {
+        ConnectivityManager cm =
+                (ConnectivityManager) this.getSystemService(this.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
     }
 
 }
