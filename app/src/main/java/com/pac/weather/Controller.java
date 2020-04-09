@@ -32,7 +32,7 @@ public class Controller {
 //    File f = new File(path, "data.txt");
     private final String filePath = "/media/mohammad/F/data.txt";
 //    private final String filePath = "/Users/roodabeh/Desktop/Files/Projects/Android/HW_01/app/src/main/res/data.txt";
-    private static NotificationCenter notificationCenter;
+    public static NotificationCenter notificationCenter;
     private static Controller controller;
     public DispatchQueue dispatchQueue = new DispatchQueue("Controller");
     private ArrayList<Weather> dailyForecast = new ArrayList<>();
@@ -69,7 +69,7 @@ public class Controller {
         }
     }
 
-    ArrayList<Weather> readDataFromFile(Context context){
+    void readDataFromFile(Context context){
         try {
 
             FileInputStream fileIn = context.openFileInput("data.txt");
@@ -84,12 +84,10 @@ public class Controller {
             System.err.println("Database has been read from the file");
             controller.dailyForecast = obj;
             DisplayWeatherActivity root = (DisplayWeatherActivity)context;
-            root.update();
-            return obj;
+//            root.update()
 
         } catch (Exception ex) {
             ex.printStackTrace();
-            return null;
         }
     }
 

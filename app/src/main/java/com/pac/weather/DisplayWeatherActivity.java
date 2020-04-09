@@ -54,6 +54,7 @@ public class DisplayWeatherActivity extends AppCompatActivity implements Notific
                 public void run() {
                     controller.readDataFromFile(DisplayWeatherActivity.this);
 //                    DisplayWeatherActivity.this.update();
+                    Controller.notificationCenter.notifyObservers();
                 }
             });
         }
@@ -73,8 +74,8 @@ public class DisplayWeatherActivity extends AppCompatActivity implements Notific
                 String[] day = new String[controller.getDailyForecast().size()];
                 String[] summary = new String[controller.getDailyForecast().size()];
                 int[] icon = new int[controller.getDailyForecast().size()];
-                String[] windSpeed = new String[controller.getDailyForecast().size()];;
-                String[] humidity = new String[controller.getDailyForecast().size()];;
+                String[] windSpeed = new String[controller.getDailyForecast().size()];
+                String[] humidity = new String[controller.getDailyForecast().size()];
                 String[] pressure = new String[controller.getDailyForecast().size()];
                 String[] high = new String[controller.getDailyForecast().size()];
                 String[] low = new String[controller.getDailyForecast().size()];
