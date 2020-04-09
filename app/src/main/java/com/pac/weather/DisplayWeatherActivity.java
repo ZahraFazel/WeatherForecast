@@ -53,7 +53,8 @@ public class DisplayWeatherActivity extends AppCompatActivity implements Notific
             controller.dispatchQueue.postRunnable(new Runnable() {
                 @Override
                 public void run() {
-                    controller.readDataFromFile();
+                    controller.readDataFromFile(DisplayWeatherActivity.this);
+//                    DisplayWeatherActivity.this.update();
                 }
             });
         }
