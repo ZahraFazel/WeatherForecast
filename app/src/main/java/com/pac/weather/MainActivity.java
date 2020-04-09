@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
     private Controller controller = Controller.getInstance(notificationCenter);
 
     ArrayList<City> cities = new ArrayList<>();
+    int counter = 0;
 
     public ArrayList<City> getCities()
     {
@@ -54,6 +56,10 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
             @Override
             public void afterTextChanged(Editable editable) {
                 if (searchBox.getText().length() != 0) {
+                    MainActivity activity = MainActivity.this;
+                    activity.counter++;
+                    TextView textView = activity.findViewById(R.id.loading);
+                    textView.setText(getString(R.string.loading));
                     if (checkConnection())
                         controller.dispatchQueue.postRunnable(new Runnable() {
                         @Override
@@ -104,6 +110,10 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
                 CityListAdapter adapter = new CityListAdapter(MainActivity.this, mainTitle, subtitle);
                 ListView list = findViewById(R.id.list);
                 list.setAdapter(adapter);
+
+
+                TextView loading = findViewById(R.id.loading);
+                loading.setText("");
             }
         });
     }
