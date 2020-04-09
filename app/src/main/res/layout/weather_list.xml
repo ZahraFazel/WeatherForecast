@@ -24,7 +24,7 @@
             android:layout_marginTop="10dp"
             android:padding="2dp"
             android:fontFamily="sans-serif"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textColor="@color/dayText"
             android:layout_toEndOf="@+id/icon"/>
         <TextView
@@ -38,7 +38,7 @@
             android:layout_toEndOf="@+id/icon"
             android:fontFamily="sans-serif"
             android:padding="2dp"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textColor="@color/dayText"
             android:layout_below="@+id/date"/>
         <TextView
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:text="@string/windSpeed"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
             android:padding="2dp"
             android:layout_toEndOf="@+id/icon"
             android:fontFamily="sans-serif"
@@ -60,7 +60,8 @@
             android:layout_height="wrap_content"
             android:text="@string/pressure"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="20dp"
             android:padding="2dp"
             android:layout_toEndOf="@+id/wind"
             android:fontFamily="sans-serif"
@@ -73,7 +74,7 @@
             android:layout_height="wrap_content"
             android:text="@string/humidity"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
             android:padding="2dp"
             android:layout_toEndOf="@+id/pressure"
             android:fontFamily="sans-serif"

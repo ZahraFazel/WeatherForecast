@@ -67,14 +67,14 @@ public class DisplayWeatherActivity extends AppCompatActivity implements Notific
                 String[] high = new String[controller.getDailyForecast().size()];
                 String[] low = new String[controller.getDailyForecast().size()];
                 int i = 0;
+                Date date = new Date(controller.getTime() * 1000);
+                Calendar cal = Calendar.getInstance(TimeZone.getTimeZone(controller.getTimezone()));
+                cal.setTime(date);
+                int dayWeek = cal.get(Calendar.DAY_OF_WEEK_IN_MONTH);
                 for( Weather weather : controller.getDailyForecast() )
                 {
-                    Date date = new Date((controller.getTime() + i * 86400) * 1000);
-                    Calendar cal = Calendar.getInstance(TimeZone.getTimeZone(controller.getTimezone()));
-                    cal.setTime(date);
-                    day[i] = cal.get(Calendar.DAY_OF_WEEK_IN_MONTH) + ", " +
-                            getMonthName(cal.get(Calendar.MONTH))
-                        + " " + getWeekDayName(cal.get(Calendar.DAY_OF_MONTH));
+                    day[i] = getWeekDayName(dayWeek) + ", " +
+                            getMonthName(cal.get(Calendar.MONTH)) + " " + cal.get(Calendar.DAY_OF_MONTH);
                     summary[i] = weather.getSummery();
                     icon[i] = getResources().getIdentifier(weather.getIcon().replace('-','_')
                                                             ,"drawable", getPackageName());
@@ -84,6 +84,8 @@ public class DisplayWeatherActivity extends AppCompatActivity implements Notific
                     high[i] = weather.getTemperatureHigh();
                     low[i] = weather.getTemperatureLow();
                     i++;
+                    cal.add(Calendar.DATE, 1);
+                    dayWeek = (dayWeek + 1) % 7;
                 }
 
                 RelativeLayout relativeLayout = findViewById(R.id.relLayout);
@@ -138,13 +140,13 @@ public class DisplayWeatherActivity extends AppCompatActivity implements Notific
     {
         switch (weekDay)
         {
-            case 0: return "Monday";
-            case 1: return "Tuesday";
-            case 2: return "Wednesday";
-            case 3: return "Thursday";
-            case 4: return "Friday";
-            case 5: return "Saturday";
-            case 6: return "Sunday";
+            case 0: return "Mon";
+            case 1: return "Tue";
+            case 2: return "Wed";
+            case 3: return "Thu";
+            case 4: return "Fri";
+            case 5: return "Sat";
+            case 6: return "Sun";
             default:return "";
         }
     }
