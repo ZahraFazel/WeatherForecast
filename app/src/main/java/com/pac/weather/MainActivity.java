@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
         if(!checkConnection()){
             Intent intent = new Intent(this, DisplayWeatherActivity.class);
             startActivity(intent);
+            return;
         }
 
 
@@ -64,12 +65,6 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
                             controller.makeRequest(MainActivity.this, url, "MapBox");
                         }
                     });
-                    else{
-                        controller.dispatchQueue.postRunnable(new Runnable() {
-                            @Override
-                            public void run() { controller.readDataFromFile(); }
-                        });
-                    }
 
                 }
             }
