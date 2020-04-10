@@ -21,18 +21,12 @@
         android:textColor="@color/nightText"
         android:textColorHint="@color/nightText"/>
 
-    <TextView
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:id="@+id/loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
-        android:gravity="center"
-        android:textSize="25sp"
-        android:layout_centerHorizontal="true"
-        android:background="@null"
-        android:textColor="@color/nightText"
-        android:textColorHint="@color/nightText"
-        android:layout_below="@+id/search_box"/>
+        android:layout_below="@+id/search_box"
+        android:layout_centerHorizontal="true"/>
 
     <ListView
         android:id="@+id/list"

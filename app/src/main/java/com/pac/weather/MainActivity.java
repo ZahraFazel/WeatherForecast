@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import pl.droidsonroids.gif.GifImageView;
+
 public class MainActivity extends AppCompatActivity implements NotificationCenter.Observer
 {
     private NotificationCenter notificationCenter = NotificationCenter.getInstance();
@@ -35,6 +37,11 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
         notificationCenter.register(this);
 
         setContentView(R.layout.activity_main);
+        try
+        {
+            this.getSupportActionBar().hide();
+        }
+        catch (NullPointerException e){}
 
         if(!checkConnection()){
             Intent intent = new Intent(this, DisplayWeatherActivity.class);
@@ -139,8 +146,8 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
             @Override
             public void run()
             {
-                TextView textView = findViewById(R.id.loading);
-                textView.setText(getString(R.string.loading));
+                GifImageView gifImageView = findViewById(R.id.loading);
+                gifImageView.setImageResource(R.drawable.loader);
             }
         });
 
@@ -153,8 +160,8 @@ public class MainActivity extends AppCompatActivity implements NotificationCente
             @Override
             public void run()
             {
-                TextView loading = findViewById(R.id.loading);
-                loading.setText("");
+                GifImageView gifImageView = findViewById(R.id.loading);
+                gifImageView.setImageResource(0);
             }
         });
 

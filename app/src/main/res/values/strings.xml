@@ -4,7 +4,7 @@
     <string name="search_box_hint">tehran</string>
     <string name="loading_data">Please wait...</string>
     <string name="msg_inflater_key">tehran</string>
-    <string name="ApiError">some thing went wrong</string>
+    <string name="ApiError">Something went wrong</string>
     <string name="offline_mode">you are offline</string>
     <string name="base_url">https://api.mapbox.com/geocoding/v5/mapbox.places/</string>
     <string name="request_format">.json?access_token=</string>
@@ -18,5 +18,5 @@
     <string name="high">High</string>
     <string name="low">Low</string>
     <string name="temperature">Tem</string>
-    <string name="loading">loading</string>
+    <string name="loading">Loading...</string>
 </resources>
